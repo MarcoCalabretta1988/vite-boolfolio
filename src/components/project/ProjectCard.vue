@@ -26,18 +26,29 @@ export default {
 </script>
 
 <template>
-    <div class="card h-100">
-        <div class="d-flex justify-content-center align-items-center mt-3">
-            <img :src="project.image" class="card-img-top img-fluid w-50" :alt="project.name">
-        </div>
+    <div class="card h-100 border-success">
+        <figure class="d-flex justify-content-center align-items-center mt-4">
+            <img :src="project.image" class="card-img-top img-fluid w-50 " :alt="project.name">
+        </figure>
         <div class="card-body">
-            <h3 class="card-title my-3">{{ project.name }}</h3>
-            <p class="card-text">{{ project.description }}</p>
+            <h3 class="card-title my-3 text-center">{{ project.name.toUpperCase() }}</h3>
+            <p class="card-text card-description">{{ project.description }}</p>
             <hr>
-            <strong>Type:</strong> {{ project.type.label }}
-            <strong>Updated at:</strong> {{ projectDate }}
+            <div class="d-flex justify-content-between">
+                <div><strong>Type:</strong> {{ project.type.label }} </div>
+                <div><strong>Updated at:</strong> {{ projectDate }}</div>
+            </div>
         </div>
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+figure {
+    height: 200px;
+}
+
+.card-description {
+    height: 400px;
+    overflow-y: auto;
+}
+</style>
