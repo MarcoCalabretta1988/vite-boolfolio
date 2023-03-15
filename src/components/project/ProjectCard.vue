@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: 'AppCard',
+    name: 'ProjectCard',
     data: () => ({
 
     }),
@@ -28,7 +28,6 @@ export default {
 <template>
     <div class="card h-100">
         <div class="d-flex justify-content-center align-items-center mt-3">
-
             <img :src="project.image" class="card-img-top img-fluid w-50" :alt="project.name">
         </div>
         <div class="card-body">

@@ -3,6 +3,7 @@ import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
 import ProjectCard from './components/project/ProjectCard.vue';
 import AppPaginator from './components/AppPaginator.vue';
+import AppLoader from './components/AppLoader.vue';
 const apiBaseUrl = 'http://127.0.0.1:8000/api';
 
 export default {
@@ -15,10 +16,10 @@ export default {
       links: [],
     },
   }),
-  components: { AppHeader, ProjectCard, AppPaginator },
+  components: { AppHeader, ProjectCard, AppPaginator, AppLoader },
   methods: {
     fetchProjects(endpoint = null) {
-      this.Loding = true;
+      this.loading = true;
       if (!endpoint) endpoint = apiBaseUrl + '/projects';
       axios.get(endpoint).then(res => {
         const { data, links } = res.data;
@@ -26,7 +27,7 @@ export default {
       }).catch(() => {
         this.hasError = true;
       }).then(() => {
-        this.loding = false;
+        this.loading = false;
       });
     }
   },
@@ -39,11 +40,15 @@ export default {
 <template>
   <app-header></app-header>
 
-  <main class="container my-5">
-    <div class="row row-cols-2 g-5">
+  <app-loader v-if="loading"></app-loader>
+  <main class="container my-5" v-else>
+    <div class="row row-cols-2 g-5" v-if="projects.data.length">
       <div class="col" v-for="project in projects.data" :key="project.id">
         <project-card :project="project"> </project-card>
       </div>
+    </div>
+    <div v-else class="text-center">
+      <h1>Non ci sono progetti da mostrare</h1>
     </div>
   </main>
 
