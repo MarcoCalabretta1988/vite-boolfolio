@@ -4,6 +4,7 @@ import AppHeader from './components/AppHeader.vue';
 import ProjectCard from './components/project/ProjectCard.vue';
 import AppPaginator from './components/AppPaginator.vue';
 import AppLoader from './components/AppLoader.vue';
+import AppAlert from './components/AppAlert.vue';
 const apiBaseUrl = 'http://127.0.0.1:8000/api';
 
 export default {
@@ -16,7 +17,7 @@ export default {
       links: [],
     },
   }),
-  components: { AppHeader, ProjectCard, AppPaginator, AppLoader },
+  components: { AppHeader, ProjectCard, AppPaginator, AppLoader, AppAlert },
   methods: {
     fetchProjects(endpoint = null) {
       this.loading = true;
@@ -40,6 +41,7 @@ export default {
 <template>
   <app-header></app-header>
 
+  <app-alert v-if="hasError" @close-alert="hasError = false"></app-alert>
   <app-loader v-if="loading"></app-loader>
   <main class="container my-5" v-else>
     <div class="row row-cols-2 g-5" v-if="projects.data.length">
