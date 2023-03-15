@@ -1,20 +1,33 @@
 <script>
 import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
-import AppCard from './components/AppCard.vue';
+import ProjectCard from './components/project/ProjectCard.vue';
+import AppPaginator from './components/AppPaginator.vue';
 const apiBaseUrl = 'http://127.0.0.1:8000/api';
 
 export default {
   name: 'AppMain',
   data: () => ({
-    projects: [],
+    hasError: false,
+    loading: false,
+    projects: {
+      data: [],
+      links: [],
+    },
   }),
-  components: { AppHeader, AppCard },
+  components: { AppHeader, ProjectCard, AppPaginator },
   methods: {
-    fetchProjects() {
-      axios.get(apiBaseUrl + '/projects').then(res => {
-        this.projects = res.data;
-      })
+    fetchProjects(endpoint = null) {
+      this.Loding = true;
+      if (!endpoint) endpoint = apiBaseUrl + '/projects';
+      axios.get(endpoint).then(res => {
+        const { data, links } = res.data;
+        this.projects = { data, links };
+      }).catch(() => {
+        this.hasError = true;
+      }).then(() => {
+        this.loding = false;
+      });
     }
   },
   created() {
@@ -28,11 +41,16 @@ export default {
 
   <main class="container my-5">
     <div class="row row-cols-2 g-5">
-      <div class="col" v-for="project in projects" :key="project.id">
-        <app-card :content="project"> </app-card>
+      <div class="col" v-for="project in projects.data" :key="project.id">
+        <project-card :project="project"> </project-card>
       </div>
     </div>
   </main>
+
+  <footer>
+    <app-paginator :links="projects.links" @change-page="fetchProjects"></app-paginator>
+
+  </footer>
 </template>
 
 <style lang="scss" scoped></style>
