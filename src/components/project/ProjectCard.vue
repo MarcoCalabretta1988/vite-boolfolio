@@ -27,17 +27,28 @@ export default {
 
 <template>
     <div class="card h-100 border-success">
-        <figure class="d-flex justify-content-center align-items-center mt-4">
+        <figure class="d-flex justify-content-center align-items-center pt-5 m-3">
             <img :src="project.image" class="card-img-top img-fluid w-50 " :alt="project.name">
         </figure>
         <div class="card-body">
             <h3 class="card-title my-3 text-center">{{ project.name.toUpperCase() }}</h3>
+
             <p class="card-text card-description">{{ project.description }}</p>
+            <div class="d-flex justify-content-between">
+                <a :href="project.linkedin"> <font-awesome-icon icon="fa-brands fa-linkedin" class="icon p-1 fa-2x" /></a>
+                <a :href="project.github"> <font-awesome-icon icon="fa-brands fa-github" class="icon p-1 fa-2x" /></a>
+            </div>
             <hr>
             <div class="d-flex justify-content-between">
-                <div><strong>Type:</strong> {{ project.type.label }} </div>
-                <div><strong>Updated at:</strong> {{ projectDate }}</div>
+                <div><strong>Type:</strong> <span class="badge" :style="{ backgroundColor: project.type?.color }">{{
+                    project.type.label }}</span></div>
+                <div><strong>technologies:</strong>
+                    <span v-for="technology in project.technologies" class="badge mx-1"
+                        :style="{ backgroundColor: technology?.color }">{{ technology?.label }}</span>
+                </div>
             </div>
+            <hr>
+            <div><strong>Updated at:</strong> {{ projectDate }}</div>
         </div>
     </div>
 </template>
