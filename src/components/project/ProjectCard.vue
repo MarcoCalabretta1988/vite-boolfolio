@@ -48,7 +48,12 @@ export default {
                 </div>
             </div>
             <hr>
-            <div><strong>Updated at:</strong> {{ projectDate }}</div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div><strong>Updated at:</strong> {{ projectDate }}</div>
+                <router-link :to="{ name: 'project-detail', params: { id: project.id } }"
+                    class="btn btn-success"><font-awesome-icon icon="fa-solid fa-eye" class="icon fa-1x" />
+                    Detail</router-link>
+            </div>
         </div>
     </div>
 </template>
