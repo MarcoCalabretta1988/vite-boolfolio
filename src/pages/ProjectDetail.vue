@@ -83,8 +83,8 @@ export default {
                                     class="icon p-1 fa-2x" /></a>
                         </div>
                     </div>
-                    <button class="btn btn-success " @click="$router.back()"><font-awesome-icon
-                            icon="fa-solid fa-rotate-left" class="icon fa-1x" /> Back</button>
+                    <router-link :to="{ name: 'home' }" class="btn btn-success"><font-awesome-icon
+                            icon="fa-solid fa-rotate-left" class="icon fa-1x" /> Back</router-link>
                 </div>
             </div>
         </div>
